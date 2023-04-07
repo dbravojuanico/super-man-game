@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
+    <title>Superman minigame</title>
     <link rel="stylesheet" href="/styles/styles.css">
   </head>
   <body>
-	<script src="/js/index.js"></script>
+
+    <header>
+        <img class="superman-text" src="/images/SM_text_mod.png" alt="Superman text">
+        <img src="images/SM_logo.png" alt="Superman logo">
+    </header>
+
+    <div id="game-intro">
+        <button id="start-button">StartGame</button>
+    </div>
+
+    <div id="game-space">
+            <canvas id="space-canvas" width="650" height="950"></canvas>
+    </div>
+        
+    <div id="game-over">
+        <span>game-over</span>
+    </div>
+    <script src="/js/index.js"></script>
   </body>
 </html>

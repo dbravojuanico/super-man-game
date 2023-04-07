@@ -1,0 +1,45 @@
+
+header {
+    background-color: #FFF200;
+    width: 700px;
+    display: flex;
+    border: solid 2px black;
+    border-bottom: none;
+}
+
+img {
+    height: 180px ;
+    padding: 10px;
+}
+
+#game-intro {
+    width: 700px;
+    height: 1000px;
+    background-color: #FFF200;
+    border: solid 2px black;
+    border-top: none;
+}
+
+#game-space {
+    width: 700px;
+    height: 1000px;
+    background-color: #FFF200;
+    border: solid 2px black;
+    border-top: none;
+}
+
+#game-over {
+    width: 700px;
+    height: 1000px;
+    background-color: #FFF200;
+    background-color: red;
+    border: solid 2px black;
+    border-top: none;
+}
+
+canvas {
+    border: solid 2px black;
+    position: relative;
+    top: 23px;
+    left: 23px;
+}
