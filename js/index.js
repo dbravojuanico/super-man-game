@@ -15,15 +15,19 @@ let isHit1 = false
 let isHit2 = false
 let healthPoints = 3
 
-
 // Superman variables
 let supermanX = 300
 let supermanY = 750
 const supermanWidth = 80
 const supermanHeight = 160
-let supermanSpeed = 5
+let supermanSpeed = 6
 let movingLeft = false
 let movingRight = false
+
+// Asteroid random X value (in range)
+function randomNumberInRange () {
+    return Math.floor(Math.random()*(540-10)+10)
+}
 
 // Asteroid 1 variables
 let asteroid1Width = 100;
@@ -84,41 +88,6 @@ window.onload = () => {
         startGame()
     }
 
-    /*// Laser Class
-    class Laser {
-        constructor(){
-            // Laser variables 
-            this.x = supermanX + 40
-            this.y = supermanY - 40
-            this.width = 15
-            this.height = 50
-            this.speed = 5
-        }
-
-        moveLaser(){
-            this.y -= this.speed
-        }
-
-        drawLaser () {
-            ctx.beginPath()
-            ctx.fillStyle = "red"
-            ctx.rect (this.x, this.y, this.width, this.height)
-            ctx.fill()
-            ctx.closePath()
-        }
-
-        checkCollision(){
-            if (
-                asteroid1X < this.x + this.width &&
-                asteroid1X + asteroid1Width > this.x &&
-                asteroid1Y < this.y + this.height &&
-                asteroid1Height + asteroid1Y > this.y
-            ){
-                gameOver = true
-            }
-        }
-    } */
-
     // FUNCTIONS
     // Superman movement
     function supermanMove() {
@@ -130,7 +99,7 @@ window.onload = () => {
             supermanX += supermanSpeed
         }    
     
-    // Shoot laser
+    // Shoot laser / move & collision
     function laserMove() {
         if (
             asteroid1X < laserX + laserWidth &&
@@ -147,7 +116,7 @@ window.onload = () => {
             shooting = false
             laserY = supermanY - 40
             asteroid1Y = -20
-            asteroid1X = (Math.floor(Math.random() * canvas.width)) - asteroid1Width
+            asteroid1X = randomNumberInRange()
         }
         if (
             asteroid2X < laserX + laserWidth &&
@@ -164,7 +133,7 @@ window.onload = () => {
             shooting = false
             laserY = supermanY - 40
             asteroid2Y = -20
-            asteroid2X = (Math.floor(Math.random() * canvas.width)) - asteroid2Width
+            asteroid2X = randomNumberInRange()
         }
         if (laserY < 0) {
             shooting = false
@@ -173,7 +142,7 @@ window.onload = () => {
         laserY -= laserSpeed
     }
 
-    // Shoot laser
+    // Draw laser
     function shoot() {
         ctx.beginPath()
         ctx.fillStyle = "red"
@@ -193,14 +162,14 @@ window.onload = () => {
             asteroid1Height + asteroid1Y > supermanY
         ){
             asteroid1Y = -30
-            asteroid1X = (Math.floor(Math.random() * canvas.width)) - asteroid1Width
+            asteroid1X = randomNumberInRange()
             healthPoints -= 1
         }
         if (asteroid1Y < canvas.height){
             asteroid1Y += asteroid1Speed
         } else {
             asteroid1Y = 0
-            asteroid1X = (Math.floor(Math.random() * canvas.width)) - asteroid1Width
+            asteroid1X = randomNumberInRange()
             healthPoints -= 1
         }
     }
@@ -214,14 +183,14 @@ window.onload = () => {
             asteroid2Height + asteroid2Y > supermanY
         ){
             asteroid2Y = -10
-            asteroid2X = (Math.floor(Math.random() * canvas.width)) - asteroid2Width
+            asteroid2X = randomNumberInRange ()
             healthPoints -= 1
         }
         if (asteroid2Y < canvas.height){
             asteroid2Y += asteroid1Speed
         } else {
             asteroid2Y = 0
-            asteroid2X = (Math.floor(Math.random() * canvas.width)) - asteroid2Width
+            asteroid2X = randomNumberInRange()
             healthPoints -= 1
         }
     }
@@ -242,11 +211,6 @@ window.onload = () => {
         ctx.fillText(`Best: ${bestScore}`, 535, 30);
         ctx.closePath();
     }
-
-    // Print HP
-
-    
-   
 
     // GAME OVER
 
@@ -271,7 +235,7 @@ window.onload = () => {
             ctx.fillText(`${currentScore} POINTS`,230,360 );
             ctx.closePath();
             
-            setTimeout (gameOverFunc, 3000)
+            setTimeout (gameOverFunc, 3500)
         }
     }
 
@@ -291,10 +255,20 @@ window.onload = () => {
         moveAsteroid1()
         moveAsteroid2()
         
-    
-        isGameOver()
-        
+        // Print HP
+        if(healthPoints === 3) {
+            ctx.drawImage(heartImg, 10, 910, 30,30)
+            ctx.drawImage(heartImg, 50, 910, 30,30)
+            ctx.drawImage(heartImg, 90, 910, 30,30)
+        } else if (healthPoints === 2) {
+            ctx.drawImage(heartImg, 10, 910, 30,30)
+            ctx.drawImage(heartImg, 50, 910, 30,30)
+        } else if (healthPoints === 1) {
+            ctx.drawImage(heartImg, 10, 910, 30,30)
+        }
 
+        isGameOver()
+    
         if(shooting){          
             shoot()
         }
