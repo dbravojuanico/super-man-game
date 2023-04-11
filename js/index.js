@@ -43,6 +43,14 @@ let asteroid2X = 400;
 let asteroid2Y = -50;
 let asteroid2Speed = 3
 
+// 1up variables
+let oneUpWidth = 50
+let oneUpHeight = 80
+let oneUpX = randomNumberInRange()
+let oneUpY = -20
+let oneUpSpeed = 4
+let oneUp = false
+
 // Laser variables 
 let laserX = supermanX + 10
 let laserY = supermanY - 40
@@ -57,6 +65,8 @@ let bsX
 // Images
 const superManImg = new Image()
 superManImg.src = "./images/supermanImg.png"
+const backgroundImg2 = new Image()
+backgroundImg2.src = "images/space_background2_flipped.jpg"
 const backgroundImg = new Image()
 backgroundImg.src = "images/space_background2_mod.jpg"
 const asteroid1Img = new Image()
@@ -65,9 +75,11 @@ const asteroid2Img = new Image()
 asteroid2Img.src = "images/asteroid2img.png"
 const heartImg = new Image()
 heartImg.src = "images/heartImg-cutout.png"
+const oneUpImg = new Image()
+oneUpImg.src = "images/1upElement.png"
 
 // Animation frame Id
-let animationFrameId
+let animationFrameId = 1
 
 // Window load
 window.onload = () => {
@@ -79,7 +91,10 @@ window.onload = () => {
 
     // Press button start screen
     document.querySelector("#start-button").onclick  = () => {
+        
         gameOver = false
+        backgroundImgY = 0
+        backgroundImg2Y = -canvas.height
         superManImg.src = "./images/supermanImg.png"
         healthPoints = 3
         currentScore = 0
@@ -116,8 +131,6 @@ window.onload = () => {
             if(currentScore > bestScore){
                 bestScore = currentScore
             }
-            console.log(currentScore)
-            console.log(bestScore)
             shooting = false
             laserY = supermanY - 40
             asteroid1Y = -20
@@ -134,8 +147,6 @@ window.onload = () => {
             if(currentScore > bestScore){
                 bestScore = currentScore
             }
-            console.log(currentScore)
-            console.log(bestScore)
             shooting = false
             laserY = supermanY - 40
             asteroid2Y = -20
@@ -202,6 +213,38 @@ window.onload = () => {
         }
     }
 
+    // Draw 1up
+    function draw1Up() {
+        if (animationFrameId % 1200 === 0 && animationFrameId !== 0) {
+            console.log(animationFrameId)
+            oneUpY = -30
+            oneUp = true
+        }
+    }
+
+    // 1up movment & collision
+    function moveOneUp(){
+        if (oneUp === true) {
+            ctx.drawImage (oneUpImg, oneUpX, oneUpY, oneUpWidth, oneUpHeight )
+            oneUpY += oneUpSpeed
+        }   
+        if (oneUpY === canvas.height){
+            oneUp = false
+        }  
+        if (
+            oneUpX < supermanX + supermanWidth &&
+            oneUpX + oneUpWidth > supermanX &&
+            oneUpY < supermanY + supermanHeight &&
+            oneUpHeight + oneUpY > supermanY
+            ){
+            if (healthPoints < 3) {
+                healthPoints += 1
+                oneUpY = -30
+                oneUp = false
+            }
+        }
+    }
+        
     // Print score & best score
     function drawScore() {
         ctx.beginPath();
@@ -234,7 +277,18 @@ window.onload = () => {
     function isGameOver () {
         if (healthPoints < 1) {
             ctx.clearRect(0, 0, canvas.width, canvas.height)
-            ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height)
+
+            // Background imgs (moving)
+            ctx.drawImage(backgroundImg, 0, backgroundImgY, canvas.width, canvas.height+2)
+            ctx.drawImage(backgroundImg2, 0, backgroundImg2Y, canvas.width, canvas.height+2)
+            if (backgroundImgY === canvas.height){
+                backgroundImgY = -canvas.height
+            }
+            if (backgroundImg2Y === canvas.height){
+                backgroundImg2Y = -canvas.height
+            }
+
+            //Draw elements (during gameover)
             superManImg.src = "images/supermanImgGrey.png"
             ctx.drawImage(superManImg, supermanX, supermanY, supermanWidth, supermanHeight)
             ctx.beginPath();
@@ -252,13 +306,32 @@ window.onload = () => {
         }
     }
 
-    // Main game function
+    //Background imgs Y position
+    let backgroundImgY = 0
+    let backgroundImg2Y = -backgroundImgY
+    
+
+    // MAIN GAME FUNCTION
     function startGame() {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         canvas.style.display = "block"
         gameSpace.style.display = "block"
         startScreen.style.display = "none"
-        ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height)
+
+        // Background Imgs (moving)
+        ctx.drawImage(backgroundImg, 0, backgroundImgY, canvas.width, canvas.height+2)
+        ctx.drawImage(backgroundImg2, 0, backgroundImg2Y, canvas.width, canvas.height+2)
+        
+        backgroundImgY += 1
+        backgroundImg2Y += 1
+        if(backgroundImgY > canvas.height){
+            backgroundImgY = -canvas.height
+        }
+        if(backgroundImg2Y > canvas.height){
+            backgroundImg2Y = -canvas.height
+        }
+
+        // Draw elements
         ctx.drawImage(superManImg, supermanX, supermanY, supermanWidth, supermanHeight)
         ctx.drawImage(asteroid1Img, asteroid1X, asteroid1Y, asteroid1Width, asteroid1Height)
         ctx.drawImage(asteroid2Img, asteroid2X, asteroid2Y, asteroid2Width, asteroid2Height)
@@ -267,6 +340,8 @@ window.onload = () => {
         supermanMove()
         moveAsteroid1()
         moveAsteroid2()
+        draw1Up()
+        moveOneUp()
         
         // Print HP
         if(healthPoints === 3) {
@@ -324,11 +399,14 @@ window.onload = () => {
 
         // Game restart after game over
         document.querySelector("#replay-button").onclick  = () => {
-            
-            canvas.style.display = "none"
-            gameSpace.style.display = "none"
-            startScreen.style.display = "block"
-            gameOverScreen.style.display = "none"
+            window.location.reload()
+            //canvas.style.display = "none"
+            //gameSpace.style.display = "none"
+            //startScreen.style.display = "block"
+            //gameOverScreen.style.display = "none"
+
+            // RESET ANIMATION FRAME??
+            // animationFrameId = 0
         }
 
     }
