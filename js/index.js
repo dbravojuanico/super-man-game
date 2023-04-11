@@ -56,7 +56,7 @@ let bsX
 
 // Images
 const superManImg = new Image()
-superManImg.src = "images/supermanImg.png"
+superManImg.src = "./images/supermanImg.png"
 const backgroundImg = new Image()
 backgroundImg.src = "images/space_background2_mod.jpg"
 const asteroid1Img = new Image()
@@ -80,7 +80,7 @@ window.onload = () => {
     // Press button start screen
     document.querySelector("#start-button").onclick  = () => {
         gameOver = false
-        superManImg.src = "/images/supermanImg.png"
+        superManImg.src = "images/supermanImg.png"
         healthPoints = 3
         currentScore = 0
         asteroid2Y = -50;
@@ -235,7 +235,7 @@ window.onload = () => {
         if (healthPoints < 1) {
             ctx.clearRect(0, 0, canvas.width, canvas.height)
             ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height)
-            superManImg.src = "/images/supermanImgGrey.png"
+            superManImg.src = "images/supermanImgGrey.png"
             ctx.drawImage(superManImg, supermanX, supermanY, supermanWidth, supermanHeight)
             ctx.beginPath();
             ctx.font = "60px sans-serif";
