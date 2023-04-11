@@ -51,17 +51,20 @@ let laserHeight = 50
 let laserSpeed = 15
 let shooting = false
 
+// Score positioning
+let bsX
+
 // Images
 const superManImg = new Image()
-superManImg.src = "/images/supermanImg.png"
+superManImg.src = "images/supermanImg.png"
 const backgroundImg = new Image()
-backgroundImg.src = "/images/space_background2_mod.jpg"
+backgroundImg.src = "images/space_background2_mod.jpg"
 const asteroid1Img = new Image()
-asteroid1Img.src ="/images/asteroid1img.png"
+asteroid1Img.src ="images/asteroid1img.png"
 const asteroid2Img = new Image()
-asteroid2Img.src = "/images/asteroid2img.png"
+asteroid2Img.src = "images/asteroid2img.png"
 const heartImg = new Image()
-heartImg.src = "/images/heartImg-cutout.png"
+heartImg.src = "images/heartImg-cutout.png"
 
 // Animation frame Id
 let animationFrameId
@@ -84,7 +87,9 @@ window.onload = () => {
         asteroid1Y = 10;
         supermanX = 300
         supermanY = 750
-
+        asteroid1Speed = 3
+        asteroid2Speed = 3
+        
         startGame()
     }
 
@@ -117,6 +122,7 @@ window.onload = () => {
             laserY = supermanY - 40
             asteroid1Y = -20
             asteroid1X = randomNumberInRange()
+            asteroid1Speed *= 1.01
         }
         if (
             asteroid2X < laserX + laserWidth &&
@@ -134,6 +140,7 @@ window.onload = () => {
             laserY = supermanY - 40
             asteroid2Y = -20
             asteroid2X = randomNumberInRange()
+            asteroid2Speed *= 1.01
         }
         if (laserY < 0) {
             shooting = false
@@ -208,7 +215,13 @@ window.onload = () => {
         ctx.beginPath();
         ctx.font = "30px sans-serif";
         ctx.fillStyle = "white";
-        ctx.fillText(`Best: ${bestScore}`, 535, 30);
+        if (bestScore >= 100) {
+            bsX = 515
+        } else {
+            bsX = 535
+        }
+        ctx.fillText(`Best: ${bestScore}`, bsX, 30);
+        
         ctx.closePath();
     }
 
