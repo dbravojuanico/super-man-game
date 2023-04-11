@@ -45,7 +45,7 @@ let asteroid2Speed = 3
 
 // 1up variables
 let oneUpWidth = 50
-let oneUpHeight = 80
+let oneUpHeight = 70
 let oneUpX = randomNumberInRange()
 let oneUpY = -20
 let oneUpSpeed = 4

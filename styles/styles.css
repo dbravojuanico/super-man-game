@@ -1,3 +1,7 @@
+body {
+    background-image: url("../images/comicBackground.jpeg");
+    padding: 0 20%;
+}
 
 header {
     background-color: #FFF200;
@@ -5,9 +9,10 @@ header {
     display: flex;
     border: solid 2px black;
     border-bottom: none;
+    
 }
 
-img {
+header img {
     height: 180px ;
     padding: 10px;
 }
@@ -19,9 +24,10 @@ img {
     border: solid 2px black;
     border-top: none;
     position: relative;
+    
 }
 
-#game-intro img {
+.game-intro-img {
     margin: 0;
     padding: 0;
     width: 650px; 
@@ -46,12 +52,43 @@ img {
     
 }
 
+.instructions {
+    width: 610px;
+    height: 40px;
+    border: solid 2px white;
+    position: relative;
+    bottom: 140px;
+    left: 35px;
+    display:flex ;
+    justify-content: space-between;
+    padding: 0px 5px;
+}
+
+.divArrow {
+    height: 40px;
+    color: white;
+    font-family: "Orbitron";
+    font-size: 21px;
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    margin: 0px;
+}
+
+.arrow {
+   
+    height: 20px;
+}
+
 #game-space {
     width: 700px;
     height: 1000px;
     background-color: #FFF200;
     border: solid 2px black;
     border-top: none;
+    
 }
 
 #game-over {
@@ -64,6 +101,7 @@ img {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    
    
 }
 
