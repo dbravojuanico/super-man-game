@@ -80,7 +80,7 @@ window.onload = () => {
     // Press button start screen
     document.querySelector("#start-button").onclick  = () => {
         gameOver = false
-        superManImg.src = "images/supermanImg.png"
+        superManImg.src = "./images/supermanImg.png"
         healthPoints = 3
         currentScore = 0
         asteroid2Y = -50;
