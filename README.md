@@ -44,6 +44,6 @@ The asteroids move increasingly fast, so it is harder to destory them as the gam
 
 ## Links
 
-- [Slides Link](http://slides.com)
+- [Slides Link](https://docs.google.com/presentation/d/1fqnkrze5J4-MqAwXjh0IEWmeFrAHSyDwoK5TJwGyKJI/edit?usp=sharing)
 - [Github repository Link](https://github.com/dbravojuanico/super-man-game)
 - [Deployment Link](https://dbravojuanico.github.io/super-man-game/)
