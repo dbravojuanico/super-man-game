@@ -78,6 +78,12 @@ heartImg.src = "images/heartImg-cutout.png"
 const oneUpImg = new Image()
 oneUpImg.src = "images/1upElement.png"
 
+//Audio
+const laserAudio = new Audio("./audio/laser.wav")
+const oneUpAudio = new Audio("./audio/oneUp.wav")
+const asteroidAudio = new Audio("./audio/asteroid.wav")
+const gameOverAudio = new Audio("./audio/gameOver3.wav")
+
 // Animation frame Id
 let animationFrameId = 1
 
@@ -131,6 +137,7 @@ window.onload = () => {
             if(currentScore > bestScore){
                 bestScore = currentScore
             }
+            asteroidAudio.play()
             shooting = false
             laserY = supermanY - 40
             asteroid1Y = -20
@@ -149,6 +156,7 @@ window.onload = () => {
             }
             shooting = false
             laserY = supermanY - 40
+            asteroidAudio.play()
             asteroid2Y = -20
             asteroid2X = randomNumberInRange()
             asteroid2Speed *= 1.01
@@ -162,6 +170,7 @@ window.onload = () => {
 
     // Draw laser
     function shoot() {
+        laserAudio.play()
         ctx.beginPath()
         ctx.fillStyle = "red"
         ctx.rect (laserX, laserY, laserWidth, laserHeight)
@@ -179,6 +188,7 @@ window.onload = () => {
             asteroid1Y < supermanY + supermanHeight &&
             asteroid1Height + asteroid1Y > supermanY
         ){
+            asteroidAudio.play()
             asteroid1Y = -30
             asteroid1X = randomNumberInRange()
             healthPoints -= 1
@@ -200,6 +210,7 @@ window.onload = () => {
             asteroid2Y < supermanY + supermanHeight &&
             asteroid2Height + asteroid2Y > supermanY
         ){
+            asteroidAudio.play()
             asteroid2Y = -10
             asteroid2X = randomNumberInRange ()
             healthPoints -= 1
@@ -238,6 +249,7 @@ window.onload = () => {
             oneUpHeight + oneUpY > supermanY
             ){
             if (healthPoints < 3) {
+                oneUpAudio.play()
                 healthPoints += 1
                 oneUpY = -30
                 oneUp = false
@@ -272,10 +284,12 @@ window.onload = () => {
 
     function gameOverFunc () {
         gameOver = true
+        
     } 
 
     function isGameOver () {
         if (healthPoints < 1) {
+            gameOverAudio.play()
             ctx.clearRect(0, 0, canvas.width, canvas.height)
 
             // Background imgs (moving)
@@ -303,6 +317,7 @@ window.onload = () => {
             ctx.closePath();
             
             setTimeout (gameOverFunc, 3500)
+            gameOverAudio.play()
         }
     }
 
@@ -336,7 +351,7 @@ window.onload = () => {
         ctx.drawImage(asteroid1Img, asteroid1X, asteroid1Y, asteroid1Width, asteroid1Height)
         ctx.drawImage(asteroid2Img, asteroid2X, asteroid2Y, asteroid2Width, asteroid2Height)
         drawScore()
-        drawBestScore()
+        // drawBestScore() **If we reload window for the frame ID this is lost.
         supermanMove()
         moveAsteroid1()
         moveAsteroid2()
