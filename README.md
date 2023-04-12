@@ -1,6 +1,6 @@
 # Superman in space
 
-[Click here to see deployed game](https://dbravojuanico.github.io/super-man-game/)
+[Play the game!](https://dbravojuanico.github.io/super-man-game/)
 
 ## Description
 Superman in space is a game where the player has to move the main character left and right in order to aim to incoming asteroids and shot the with a laser. The player has three life counters and every time superman collides with an asteroid or an asteroid goes past Superman (to earth) one life counter is lost. When there are no life counters remaining, the game ends.
@@ -22,8 +22,20 @@ The asteroids move increasingly fast, so it is harder to destory them as the gam
 - Sounds for laser / collision
 
 ## Data structure
-_List of classes and methods_
 
+### index.js
+- supermanMove()
+- laserMove()
+- shoot()
+- moveAsteroid1()
+- moveAsteroid2()
+- draw1Up()
+- moveOneUp()
+- drawScore()
+- drawBestScore()
+- gameOverFunc()
+- isGameOver()
+- startGame()
 
 ## States y States Transitions
 - Splash screen
