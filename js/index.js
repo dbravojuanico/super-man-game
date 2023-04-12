@@ -85,7 +85,8 @@ const asteroidAudio = new Audio("./audio/asteroid.wav")
 const gameOverAudio = new Audio("./audio/gameOver3.wav")
 
 // Animation frame Id
-let animationFrameId = 1
+let animationFrameId 
+let frameCounter = 0
 
 // Window load
 window.onload = () => {
@@ -97,7 +98,8 @@ window.onload = () => {
 
     // Press button start screen
     document.querySelector("#start-button").onclick  = () => {
-        
+        oneUpY = -30
+        frameCounter = 0
         gameOver = false
         backgroundImgY = 0
         backgroundImg2Y = -canvas.height
@@ -226,8 +228,8 @@ window.onload = () => {
 
     // Draw 1up
     function draw1Up() {
-        if (animationFrameId % 1200 === 0 && animationFrameId !== 0) {
-            console.log(animationFrameId)
+        if (frameCounter % 500 === 0 && !gameOver) {    
+            console.log(frameCounter)   
             oneUpY = -30
             oneUp = true
         }
@@ -328,6 +330,8 @@ window.onload = () => {
 
     // MAIN GAME FUNCTION
     function startGame() {
+        frameCounter += 1
+        console.log(oneUpY)
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         canvas.style.display = "block"
         gameSpace.style.display = "block"
@@ -351,7 +355,7 @@ window.onload = () => {
         ctx.drawImage(asteroid1Img, asteroid1X, asteroid1Y, asteroid1Width, asteroid1Height)
         ctx.drawImage(asteroid2Img, asteroid2X, asteroid2Y, asteroid2Width, asteroid2Height)
         drawScore()
-        // drawBestScore() **If we reload window for the frame ID this is lost.
+        drawBestScore() 
         supermanMove()
         moveAsteroid1()
         moveAsteroid2()
@@ -414,14 +418,12 @@ window.onload = () => {
 
         // Game restart after game over
         document.querySelector("#replay-button").onclick  = () => {
-            window.location.reload()
-            //canvas.style.display = "none"
-            //gameSpace.style.display = "none"
-            //startScreen.style.display = "block"
-            //gameOverScreen.style.display = "none"
-
-            // RESET ANIMATION FRAME??
-            // animationFrameId = 0
+            //window.location.reload()
+            canvas.style.display = "none"
+            gameSpace.style.display = "none"
+            startScreen.style.display = "block"
+            gameOverScreen.style.display = "none"
+            
         }
 
     }
