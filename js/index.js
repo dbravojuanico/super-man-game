@@ -112,7 +112,6 @@ window.onload = () => {
         supermanY = 750
         asteroid1Speed = 3
         asteroid2Speed = 3
-        
         startGame()
     }
 
@@ -178,7 +177,6 @@ window.onload = () => {
         ctx.rect (laserX, laserY, laserWidth, laserHeight)
         ctx.fill()
         ctx.closePath()
-
         laserMove()
     }
 
@@ -228,8 +226,7 @@ window.onload = () => {
 
     // Draw 1up
     function draw1Up() {
-        if (frameCounter % 500 === 0 && !gameOver) {    
-            console.log(frameCounter)   
+        if (frameCounter % 750 === 0 && !gameOver) {    
             oneUpY = -30
             oneUp = true
         }
@@ -286,7 +283,6 @@ window.onload = () => {
 
     function gameOverFunc () {
         gameOver = true
-        
     } 
 
     function isGameOver () {
@@ -327,11 +323,9 @@ window.onload = () => {
     let backgroundImgY = 0
     let backgroundImg2Y = -backgroundImgY
     
-
     // MAIN GAME FUNCTION
     function startGame() {
         frameCounter += 1
-        console.log(oneUpY)
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         canvas.style.display = "block"
         gameSpace.style.display = "block"
@@ -423,8 +417,6 @@ window.onload = () => {
             gameSpace.style.display = "none"
             startScreen.style.display = "block"
             gameOverScreen.style.display = "none"
-            
         }
-
     }
 }
